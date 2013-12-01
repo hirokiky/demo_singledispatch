@@ -38,6 +38,11 @@ def dict_to_message(arg):
     return Message(body, **arg)
 
 
+@generate_message.register(Message)
+def diretory_message(arg):
+    return arg
+
+
 def as_robot(func):
     def wrapped(*args, **kwargs):
         ret = func(*args, **kwargs)
@@ -62,6 +67,11 @@ def neomodel(message):
 
 
 @as_robot
+def tatikoma(message):
+    return Message('donadona')
+
+
+@as_robot
 def warrior(message):
     return ['Yes, sir!']
 
@@ -71,6 +81,8 @@ if __name__ == '__main__':
     print(antique('dummy message'))
     print('neomodel::', end=' ')
     print(neomodel('dummy message'))
+    print('tatikoma::', end=' ')
+    print(tatikoma('dummy message'))
 
     # Adding a new message handler on runtime.
     generate_message.register(list, lambda arg: Message(arg[0]))
