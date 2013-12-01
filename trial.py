@@ -18,12 +18,12 @@ def fun(arg):
 
 
 @fun.register(int)
-def _(arg):
+def fun_int(arg):
     return 'int'
 
 
 @fun.register(list)
-def _(arg):
+def fun_list(arg):
     return 'list'
 
 
@@ -35,7 +35,7 @@ class Model(object):
 
 
 @fun.register(Model)
-def _(arg):
+def fun_model(arg):
     return 'model'
 
 ## Testing
@@ -47,6 +47,11 @@ assert fun(Model()) == 'model'
 assert fun('str') == 'default'  # str type is not registered.
 assert fun(0.0) == 'default'  # fload too.
 
+## Testing redisterd function directoly
+
+assert fun_int('dummy') == 'int'
+assert fun_list('dummy') == 'list'
+assert fun(object()) == 'default'  # Using 'instance of object' to test the default behavior.
 
 ##########################################
 ## Registering a new fuction by calling
